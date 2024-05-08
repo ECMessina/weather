@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:weather/constants.dart';
+import 'package:weather/start_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,9 +13,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+        backgroundColor: SigColors.medTheme,
+        body: StartScreen(),
       ),
     );
   }
