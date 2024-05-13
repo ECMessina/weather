@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather/constants.dart';
+import 'package:weather/elevated_search_button.dart';
 
 class LocationDenied extends StatelessWidget {
   const LocationDenied({super.key});
@@ -11,22 +12,37 @@ class LocationDenied extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          Text(
+            'Location permissions have been denied. Would you like to:',
+            style: TextStyles.locationTextStyle,
+          ),
           const Row(
             children: [
               Icon(
-                Icons.sunny,
-                color: Colors.amber,
+                Icons.dark_mode,
+                color: SigColors.lightTheme,
                 size: 200,
               ),
             ],
           ),
-          const Text('Location permissions have been denied. Would you like to:'),
-          ElevatedButton(
-            child: const Text('Search with zipcode'),
-            onPressed: () {},
+          ElevatedSearchButton(
+            onTap: () {},
+            text: 'Search with zipcode',
           ),
           TextButton(
-            child: const Text('Proceed with permissions'),
+            child: Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: SigColors.veryDarkTheme,
+                  ),
+                ),
+              ),
+              child: Text(
+                'Proceed with permissions',
+                style: TextStyles.expectTextStyle,
+              ),
+            ),
             onPressed: () => Navigator.pop(context),
           ),
         ],

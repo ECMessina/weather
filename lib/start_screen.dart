@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:weather/constants.dart';
 import 'package:weather/current_location_weather.dart';
+import 'package:weather/elevated_search_button.dart';
 import 'package:weather/location_denied.dart';
 
 class StartScreen extends StatelessWidget {
@@ -57,18 +57,9 @@ class StartScreen extends StatelessWidget {
             ),
           ],
         ),
-        ElevatedButton(
-          style: const ButtonStyle(
-            shadowColor: MaterialStatePropertyAll(Colors.white),
-            backgroundColor: MaterialStatePropertyAll(SigColors.lightTheme),
-            elevation: MaterialStatePropertyAll(20),
-            padding: MaterialStatePropertyAll(EdgeInsets.fromLTRB(15, 25, 15, 25)),
-          ),
-          onPressed: () => _determinePosition(context),
-          child: Text(
-            'What\'s the weather like?',
-            style: TextStyles.mainTextStyle,
-          ),
+        ElevatedSearchButton(
+          onTap: () => _determinePosition(context),
+          text: 'What\'s the weather like?',
         ),
       ],
     );

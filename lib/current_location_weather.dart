@@ -14,7 +14,10 @@ class CurrentLocationWeather extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text("Location: ${position.latitude}, ${position.longitude}"),
+          Text(
+            "Location: ${position.latitude}, ${position.longitude}",
+            style: TextStyles.locationTextStyle,
+          ),
           const Row(
             children: [
               Icon(
@@ -24,8 +27,9 @@ class CurrentLocationWeather extends StatelessWidget {
               ),
             ],
           ),
-          const Text(
+          Text(
             'Here\'s what you can expect',
+            style: TextStyles.expectTextStyle,
           ),
         ],
       ),
