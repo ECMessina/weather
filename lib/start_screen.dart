@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:weather/constants.dart';
 import 'package:weather/current_location_weather.dart';
 import 'package:weather/elevated_search_button.dart';
 import 'package:weather/location_denied.dart';
 
-class StartScreen extends StatelessWidget {
+class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
 
+  @override
+  State<StartScreen> createState() => _StartScreenState();
+}
+
+class _StartScreenState extends State<StartScreen> {
   void _determinePosition(context) async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -34,7 +41,18 @@ class StartScreen extends StatelessWidget {
       await Geolocator.openAppSettings();
     }
 
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: SpinKitSpinningLines(
+              color: SigColors.superDarkTheme,
+            ),
+          );
+        });
+
     Position position = await Geolocator.getCurrentPosition();
+
     Navigator.push(
       context,
       MaterialPageRoute(
