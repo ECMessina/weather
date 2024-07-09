@@ -27,16 +27,29 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
     weatherResponse = await WeatherService.getWeatherByLatLong(widget.position);
     setState(() {});
   }
+
+  Icon getIcon() {
+    final weatherId = weatherResponse!.weather[0].id;
+    // const weatherId = 801;
+    if (weatherId > 800) {
+      return WeatherIcon.cloudy;
+    } else if (weatherId > 700 && weatherId < 800) {
+      return WeatherIcon.windy;
+    } else if (weatherId >= 600 && weatherId < 700) {
+      return WeatherIcon.snow;
+    } else if (weatherId >= 300 && weatherId < 600) {
+      return WeatherIcon.rain;
+    } else if (weatherId >= 200 && weatherId < 300) {
+      return WeatherIcon.storms;
+    } else {
+      return WeatherIcon.sunny;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: SigColors.medTheme,
-          const Row(
-            children: [
-              Icon(
-                Icons.sunny,
-                color: Colors.amber,
-                size: 200,
       body: weatherResponse == null
           ? kSpinner
           : SafeArea(
@@ -60,15 +73,29 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
                       ),
                     ],
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        getIcon(),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    'Here\'s what you can expect:',
+                    style: TextStyles.expectTextStyle,
+                  ),
+                  Text(
+                    'Current Temperature: ${weatherResponse!.main.temp.toStringAsFixed(0)}°F',
+                    style: TextStyles.expectTextStyle,
+                  ),
+                  Text(
+                    'Feels Like: ${weatherResponse!.main.feelsLike.toStringAsFixed(0)}°F',
+                    style: TextStyles.expectTextStyle,
+                  ),
+                ],
               ),
-            ],
-          ),
-          Text(
-            'Here\'s what you can expect',
-            style: TextStyles.expectTextStyle,
-          ),
-        ],
-      ),
+            ),
     );
   }
 }

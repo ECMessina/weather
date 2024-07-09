@@ -18,7 +18,7 @@ class TextStyles {
   );
   static final locationTextStyle = GoogleFonts.merriweather(
     color: SigColors.superDarkTheme,
-    fontSize: 12,
+    fontSize: 18,
     fontWeight: FontWeight.bold,
   );
   static final expectTextStyle = GoogleFonts.merriweather(
@@ -34,3 +34,41 @@ const kSpinner = Center(
   ),
 );
 
+class WeatherIcon {
+  static const sunny = Icon(
+    Icons.sunny,
+    color: Colors.amber,
+    size: 200,
+    // 800
+  );
+  static const cloudy = Icon(
+    Icons.cloud,
+    color: Colors.white,
+    size: 200,
+    // 80x
+  );
+  static const rain = Icon(
+    Icons.cloudy_snowing,
+    color: Color.fromRGBO(13, 71, 161, 1),
+    size: 200,
+    // 3xx && 5xx
+  );
+  static const storms = Icon(
+    Icons.thunderstorm_sharp,
+    color: Colors.black,
+    size: 200,
+    // 2xx
+  );
+  static const snow = Icon(
+    Icons.ac_unit_sharp,
+    color: Colors.white,
+    size: 200,
+    // 6xx
+  );
+  static const windy = Icon(
+    Icons.air,
+    color: Color.fromARGB(255, 53, 63, 72),
+    size: 200,
+    // 7xx
+  );
+}
