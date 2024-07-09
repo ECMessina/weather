@@ -31,19 +31,35 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: SigColors.medTheme,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            "Location: ${position.latitude}, ${position.longitude}",
-            style: TextStyles.locationTextStyle,
-          ),
           const Row(
             children: [
               Icon(
                 Icons.sunny,
                 color: Colors.amber,
                 size: 200,
+      body: weatherResponse == null
+          ? kSpinner
+          : SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    "In ${weatherResponse!.name}",
+                    style: TextStyles.locationTextStyle,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        "Low: ${weatherResponse!.main.tempMin.toStringAsFixed(0)}°F",
+                        style: TextStyles.locationTextStyle,
+                      ),
+                      Text(
+                        "High: ${weatherResponse!.main.tempMax.toStringAsFixed(0)}°F",
+                        style: TextStyles.locationTextStyle,
+                      ),
+                    ],
+                  ),
               ),
             ],
           ),

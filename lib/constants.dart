@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SigColors {
@@ -26,3 +27,10 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
 }
+
+const kSpinner = Center(
+  child: SpinKitSpinningLines(
+    color: SigColors.lightTheme,
+  ),
+);
+

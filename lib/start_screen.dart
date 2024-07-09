@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather/constants.dart';
 import 'package:weather/current_location_weather.dart';
@@ -41,15 +40,7 @@ class _StartScreenState extends State<StartScreen> {
       await Geolocator.openAppSettings();
     }
 
-    showDialog(
-        context: context,
-        builder: (context) {
-          return const Center(
-            child: SpinKitSpinningLines(
-              color: SigColors.lightTheme,
-            ),
-          );
-        });
+    showDialog(context: context, builder: (context) => kSpinner);
 
     Position position = await Geolocator.getCurrentPosition();
     // await Future.delayed(const Duration(seconds: 5));
