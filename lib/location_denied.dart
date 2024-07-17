@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather/constants.dart';
-import 'package:weather/elevated_search_button.dart';
+import 'package:weather/current_location_weather.dart';
+import 'package:weather/search_field.dart';
 
 class LocationDenied extends StatelessWidget {
   const LocationDenied({super.key});
@@ -21,10 +22,16 @@ class LocationDenied extends StatelessWidget {
               ),
             ],
           ),
-          ElevatedSearchButton(
-            onTap: () {},
-            text: 'Search with zipcode',
-          ),
+          SearchField(onSubmitted: (enteredValue) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: ((context) => CurrentLocationWeather(
+                      searchedValue: enteredValue,
+                    )),
+              ),
+            );
+          }),
           TextButton(
             child: Container(
               decoration: const BoxDecoration(

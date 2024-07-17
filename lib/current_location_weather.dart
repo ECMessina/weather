@@ -3,11 +3,13 @@ import 'package:geolocator/geolocator.dart';
 import 'package:weather/constants.dart';
 import 'package:weather/weather_response.dart';
 import 'package:weather/weather_service.dart';
+import 'package:weather/search_field.dart';
 
 class CurrentLocationWeather extends StatefulWidget {
-  const CurrentLocationWeather({super.key, required this.position});
+  const CurrentLocationWeather({super.key, this.position, this.searchedValue});
 
-  final Position position;
+  final Position? position;
+  final String? searchedValue;
 
   @override
   State<CurrentLocationWeather> createState() => _CurrentLocationWeatherState();
@@ -15,6 +17,7 @@ class CurrentLocationWeather extends StatefulWidget {
 
 class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
   WeatherResponse? weatherResponse;
+  // bool isValidZip = RegExp(r"^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$", caseSensitive: false);
 
   @override
   void initState() {
@@ -24,7 +27,35 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
   }
 
   void getWeather() async {
-    weatherResponse = await WeatherService.getWeatherByLatLong(widget.position);
+    if (widget.position != null) {
+      weatherResponse = await WeatherService.getWeatherByLatLong(widget.position!);
+      setState(() {});
+    } else {
+      getSearchedWeather(widget.searchedValue!);
+    }
+  }
+
+  void getSearchedWeather(String enteredValue) async {
+    setState(() {
+      weatherResponse = null;
+    });
+
+    enteredValue = enteredValue.trim();
+
+    // if (enteredValue.length == 5 && int.tryParse(enteredValue) != null) {
+    //   // 5 digit number entered
+    // }
+
+    // if (RegExp(r"^[0-9]{5}$").hasMatch(enteredValue)) {
+    //   // 5 digit number entered
+    // }
+
+    if (RegExp("[0-9]{5}").hasMatch(enteredValue)) {
+      weatherResponse = await WeatherService.getWeatherByZipCode(int.parse(enteredValue));
+    } else {
+      weatherResponse = await WeatherService.getWeatherByName(enteredValue);
+      // weatherResponse = await WeatherService.getWeatherByPostalCode(enteredValue);
+    }
     setState(() {});
   }
 
@@ -59,6 +90,7 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
                   Text(
                     "In ${weatherResponse!.name}",
                     style: TextStyles.locationTextStyle,
+                    textAlign: TextAlign.center,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -92,6 +124,11 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
                   Text(
                     'Feels Like: ${weatherResponse!.main.feelsLike.toStringAsFixed(0)}°F',
                     style: TextStyles.expectTextStyle,
+                  ),
+                  SearchField(
+                    onSubmitted: (enteredValue) {
+                      getSearchedWeather(enteredValue);
+                    },
                   ),
                 ],
               ),

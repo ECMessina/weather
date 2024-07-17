@@ -19,8 +19,28 @@ class WeatherService {
   }
 
   static Future<WeatherResponse> getWeatherByName(String name) async {
-    final response = await http.get(Uri.parse('$_baseUrl?q=$name&appid=$_apiKey&units=imperial'));
+    final response = await http.get(Uri.parse('$_baseUrl?q=$name,us&appid=$_apiKey&units=imperial'));
 
+    if (response.statusCode == 200) {
+      return WeatherResponse.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load weather data');
+    }
+  }
+
+  static Future<WeatherResponse> getWeatherByZipCode(int zip) async {
+    final response = await http.get(Uri.parse('$_baseUrl?zip=$zip,us&appid=$_apiKey&units=imperial'));
+    await Future.delayed(const Duration(seconds: 2));
+    if (response.statusCode == 200) {
+      return WeatherResponse.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load weather data');
+    }
+  }
+
+  static Future<WeatherResponse> getWeatherByPostalCode(dynamic zip) async {
+    final response = await http.get(Uri.parse('$_baseUrl?zip=$zip,ca&appid=$_apiKey&units=imperial'));
+    await Future.delayed(const Duration(seconds: 2));
     if (response.statusCode == 200) {
       return WeatherResponse.fromJson(jsonDecode(response.body));
     } else {
