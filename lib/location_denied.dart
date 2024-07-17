@@ -12,10 +12,6 @@ class LocationDenied extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text(
-            'Location permissions have been denied. Would you like to:',
-            style: TextStyles.locationTextStyle,
-          ),
           const Row(
             children: [
               Icon(
@@ -39,7 +35,7 @@ class LocationDenied extends StatelessWidget {
                 ),
               ),
               child: Text(
-                'Proceed with permissions',
+                'Get Current Location Weather',
                 style: TextStyles.expectTextStyle,
               ),
             ),
