@@ -12,6 +12,8 @@ class WeatherService {
     final response = await http.get(Uri.parse('$_baseUrl?lat=${position.latitude}&lon=${position.longitude}&appid=$_apiKey&units=imperial'));
     // await Future.delayed(const Duration(seconds: 2));
     if (response.statusCode == 200) {
+      throw Exception('Failed to load weather data');
+
       return WeatherResponse.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to load weather data');
