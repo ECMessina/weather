@@ -31,9 +31,7 @@ class UserChoicesAlert extends StatelessWidget {
             const Spacer(),
             TextButton(
               style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(
-                  SigColors.lightTheme,
-                ),
+                backgroundColor: MaterialStatePropertyAll(SigColors.lightTheme),
               ),
               onPressed: () {
                 Navigator.push(

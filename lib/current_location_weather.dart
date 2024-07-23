@@ -20,7 +20,6 @@ class CurrentLocationWeather extends StatefulWidget {
 class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
   WeatherResponse? weatherResponse;
   bool isLoading = true;
-  // bool isValidZip = RegExp(r"^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$", caseSensitive: false);
 
   @override
   void initState() {
@@ -37,7 +36,6 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
           isLoading = false;
         });
       } catch (e) {
-        // isLoading is true - spinning behind dialog
         showDialog(
             context: context,
             barrierColor: Colors.black.withOpacity(0.5),
@@ -66,19 +64,10 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
 
     enteredValue = enteredValue.trim();
 
-    // if (enteredValue.length == 5 && int.tryParse(enteredValue) != null) {
-    //   // 5 digit number entered
-    // }
-
-    // if (RegExp(r"^[0-9]{5}$").hasMatch(enteredValue)) {
-    //   // 5 digit number entered
-    // }
-
     if (RegExp("[0-9]{5}").hasMatch(enteredValue)) {
       try {
         weatherResponse = await WeatherService.getWeatherByZipCode(int.parse(enteredValue));
       } catch (e) {
-        // handle - show alert to user
         showDialog(
             context: context,
             builder: (context) {
@@ -92,7 +81,6 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
       try {
         weatherResponse = await WeatherService.getWeatherByName(enteredValue);
       } catch (e) {
-        // handle - show alert to user
         showDialog(
             context: context,
             builder: (context) {
@@ -102,8 +90,6 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
               );
             });
       }
-
-      // weatherResponse = await WeatherService.getWeatherByPostalCode(enteredValue);
     }
     setState(() {
       isLoading = false;
@@ -112,7 +98,6 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
 
   Icon getIcon() {
     final weatherId = weatherResponse!.weather[0].id;
-    // const weatherId = 801;
     if (weatherId > 800) {
       return WeatherIcon.cloudy;
     } else if (weatherId > 700 && weatherId < 800) {

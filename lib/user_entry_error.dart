@@ -22,12 +22,8 @@ class UserEntryError extends StatelessWidget {
             Center(
               child: TextButton(
                 style: const ButtonStyle(
-                  padding: MaterialStatePropertyAll(
-                    EdgeInsets.fromLTRB(50, 0, 50, 0),
-                  ),
-                  backgroundColor: MaterialStatePropertyAll(
-                    SigColors.lightTheme,
-                  ),
+                  padding: MaterialStatePropertyAll(EdgeInsets.fromLTRB(50, 0, 50, 0)),
+                  backgroundColor: MaterialStatePropertyAll(SigColors.lightTheme),
                 ),
                 onPressed: onPressed,
                 child: Text(

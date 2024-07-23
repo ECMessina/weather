@@ -18,33 +18,33 @@ class _StartScreenState extends State<StartScreen> {
   bool isLoading = false;
 
   void _determinePosition() async {
-    debugPrint('ecm - _determinePosition');
     bool serviceEnabled;
     LocationPermission permission;
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
     if (!serviceEnabled) {
-      debugPrint("ecm - serviceEnabled = false");
       showDialog(
-          context: context,
-          builder: (context) {
-            return FGBGNotifier(
-                onEvent: (FGBGType value) async {
-                  if (value == FGBGType.foreground) {
-                    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-                    if (serviceEnabled) {
-                      Navigator.of(context).pop();
-                      _determinePosition();
-                    }
-                  }
-                },
-                child: UserChoicesAlert(
-                    text: 'Location services are currently disabled',
-                    onPressed: () async {
-                      await Geolocator.openLocationSettings();
-                    }));
-          });
+        context: context,
+        builder: (context) {
+          return FGBGNotifier(
+            onEvent: (FGBGType value) async {
+              if (value == FGBGType.foreground) {
+                serviceEnabled = await Geolocator.isLocationServiceEnabled();
+                if (serviceEnabled) {
+                  Navigator.of(context).pop();
+                  _determinePosition();
+                }
+              }
+            },
+            child: UserChoicesAlert(
+                text: 'Location services are currently disabled',
+                onPressed: () async {
+                  await Geolocator.openLocationSettings();
+                }),
+          );
+        },
+      );
 
       return;
     }
@@ -52,69 +52,68 @@ class _StartScreenState extends State<StartScreen> {
     permission = await Geolocator.checkPermission();
 
     if (permission == LocationPermission.denied) {
-      debugPrint("ecm - permission = denied");
       showDialog(
-          context: context,
-          builder: (context) {
-            return FGBGNotifier(
-                onEvent: (FGBGType value) async {
-                  if (value == FGBGType.foreground) {
-                    permission = await Geolocator.requestPermission();
-                    if (permission == LocationPermission.always || permission == LocationPermission.whileInUse) {
-                      Navigator.of(context).pop();
-                      _determinePosition();
-                    }
-                  }
-                },
-                child: UserChoicesAlert(
-                    text: 'App location permission is currently denied',
-                    onPressed: () async {
-                      await Geolocator.openAppSettings();
-                    }));
-          });
+        context: context,
+        builder: (context) {
+          return FGBGNotifier(
+            onEvent: (FGBGType value) async {
+              if (value == FGBGType.foreground) {
+                permission = await Geolocator.requestPermission();
+                if (permission == LocationPermission.always || permission == LocationPermission.whileInUse) {
+                  Navigator.of(context).pop();
+                  _determinePosition();
+                }
+              }
+            },
+            child: UserChoicesAlert(
+                text: 'App location permission is currently denied',
+                onPressed: () async {
+                  await Geolocator.openAppSettings();
+                }),
+          );
+        },
+      );
 
       return;
     }
 
     if (permission == LocationPermission.deniedForever) {
-      debugPrint("ecm - permission = denied forever");
       showDialog(
-          context: context,
-          builder: (context) {
-            return FGBGNotifier(
-                onEvent: (FGBGType value) async {
-                  if (value == FGBGType.foreground) {
-                    permission = await Geolocator.requestPermission();
-                    if (permission == LocationPermission.always || permission == LocationPermission.whileInUse) {
-                      Navigator.of(context).pop();
-                      _determinePosition();
-                    } else {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const LocationDenied()),
-                      );
-                    }
-                  }
-                },
-                child: UserChoicesAlert(
-                    text: 'Location permission is currently denied',
-                    onPressed: () async {
-                      await Geolocator.openAppSettings();
-                    }));
-          });
+        context: context,
+        builder: (context) {
+          return FGBGNotifier(
+            onEvent: (FGBGType value) async {
+              if (value == FGBGType.foreground) {
+                permission = await Geolocator.requestPermission();
+                if (permission == LocationPermission.always || permission == LocationPermission.whileInUse) {
+                  Navigator.of(context).pop();
+                  _determinePosition();
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LocationDenied()),
+                  );
+                }
+              }
+            },
+            child: UserChoicesAlert(
+                text: 'App location permission is currently denied',
+                onPressed: () async {
+                  await Geolocator.openAppSettings();
+                }),
+          );
+        },
+      );
+
       return;
     }
 
-    debugPrint("ecm - showing spinner");
     setState(() {
       isLoading = true;
     });
 
     final position = await Geolocator.getCurrentPosition();
-    debugPrint("ecm - got position");
-    debugPrint("ecm - $position");
-    // await Future.delayed(const Duration(seconds: 5));
-    // Navigator.of(context).pop();
+
     Navigator.push(
       context,
       MaterialPageRoute(
