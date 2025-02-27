@@ -14,17 +14,14 @@ class ElevatedSearchButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: const ButtonStyle(
-        shadowColor: MaterialStatePropertyAll(Colors.white),
-        backgroundColor: MaterialStatePropertyAll(SigColors.lightTheme),
-        elevation: MaterialStatePropertyAll(20),
-        padding: MaterialStatePropertyAll(EdgeInsets.fromLTRB(15, 25, 15, 25)),
+      style: ButtonStyle(
+        shadowColor: WidgetStatePropertyAll(Colors.white),
+        backgroundColor: WidgetStatePropertyAll(SigColors.lightTheme),
+        elevation: WidgetStatePropertyAll(20),
+        padding: WidgetStatePropertyAll(EdgeInsets.fromLTRB(15, 25, 15, 25)),
       ),
       onPressed: onTap,
-      child: Text(
-        text,
-        style: TextStyles.mainTextStyle,
-      ),
+      child: Text(text, style: TextStyles.mainTextStyle),
     );
   }
 }

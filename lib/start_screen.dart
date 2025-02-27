@@ -24,6 +24,9 @@ class _StartScreenState extends State<StartScreen> {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
     if (!serviceEnabled) {
+      if (!mounted) {
+        return;
+      }
       showDialog(
         context: context,
         builder: (context) {
@@ -32,16 +35,19 @@ class _StartScreenState extends State<StartScreen> {
               if (value == FGBGType.foreground) {
                 serviceEnabled = await Geolocator.isLocationServiceEnabled();
                 if (serviceEnabled) {
-                  Navigator.of(context).pop();
-                  _determinePosition();
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                    _determinePosition();
+                  }
                 }
               }
             },
             child: UserChoicesAlert(
-                text: 'Location services are currently disabled',
-                onPressed: () async {
-                  await Geolocator.openLocationSettings();
-                }),
+              text: 'Location services are currently disabled',
+              onPressed: () async {
+                await Geolocator.openLocationSettings();
+              },
+            ),
           );
         },
       );
@@ -52,6 +58,10 @@ class _StartScreenState extends State<StartScreen> {
     permission = await Geolocator.checkPermission();
 
     if (permission == LocationPermission.denied) {
+      if (!mounted) {
+        return;
+      }
+
       showDialog(
         context: context,
         builder: (context) {
@@ -59,17 +69,21 @@ class _StartScreenState extends State<StartScreen> {
             onEvent: (FGBGType value) async {
               if (value == FGBGType.foreground) {
                 permission = await Geolocator.requestPermission();
-                if (permission == LocationPermission.always || permission == LocationPermission.whileInUse) {
-                  Navigator.of(context).pop();
-                  _determinePosition();
+                if (permission == LocationPermission.always ||
+                    permission == LocationPermission.whileInUse) {
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                    _determinePosition();
+                  }
                 }
               }
             },
             child: UserChoicesAlert(
-                text: 'App location permission is currently denied',
-                onPressed: () async {
-                  await Geolocator.openAppSettings();
-                }),
+              text: 'App location permission is currently denied',
+              onPressed: () async {
+                await Geolocator.openAppSettings();
+              },
+            ),
           );
         },
       );
@@ -78,6 +92,10 @@ class _StartScreenState extends State<StartScreen> {
     }
 
     if (permission == LocationPermission.deniedForever) {
+      if (!mounted) {
+        return;
+      }
+
       showDialog(
         context: context,
         builder: (context) {
@@ -85,34 +103,47 @@ class _StartScreenState extends State<StartScreen> {
             onEvent: (FGBGType value) async {
               if (value == FGBGType.foreground) {
                 permission = await Geolocator.requestPermission();
-                if (permission == LocationPermission.always || permission == LocationPermission.whileInUse) {
-                  Navigator.of(context).pop();
-                  _determinePosition();
+                if (permission == LocationPermission.always ||
+                    permission == LocationPermission.whileInUse) {
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                    _determinePosition();
+                  }
                 } else {
+                  if (!context.mounted) {
+                    return;
+                  }
+
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const LocationDenied()),
+                    MaterialPageRoute(
+                      builder: (context) => const LocationDenied(),
+                    ),
                   );
                 }
               }
             },
             child: UserChoicesAlert(
-                text: 'App location permission is currently denied',
-                onPressed: () async {
-                  await Geolocator.openAppSettings();
-                }),
+              text: 'App location permission is currently denied',
+              onPressed: () async {
+                await Geolocator.openAppSettings();
+              },
+            ),
           );
         },
       );
 
       return;
     }
-
     setState(() {
       isLoading = true;
     });
 
     final position = await Geolocator.getCurrentPosition();
+
+    if (!mounted) {
+      return;
+    }
 
     Navigator.push(
       context,
@@ -126,10 +157,10 @@ class _StartScreenState extends State<StartScreen> {
     return Stack(
       children: [
         ModalBarrier(
-          color: Colors.black.withOpacity(0.5),
+          color: Colors.black.withValues(alpha: .5),
           dismissible: false,
         ),
-        kSpinner
+        kSpinner,
       ],
     );
   }
@@ -142,13 +173,7 @@ class _StartScreenState extends State<StartScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const Row(
-              children: [
-                Icon(
-                  Icons.sunny,
-                  color: Colors.amber,
-                  size: 200,
-                ),
-              ],
+              children: [Icon(Icons.sunny, color: Colors.amber, size: 200)],
             ),
             ElevatedSearchButton(
               onTap: _determinePosition,

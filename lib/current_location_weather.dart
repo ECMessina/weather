@@ -31,23 +31,37 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
   void getWeather() async {
     if (widget.position != null) {
       try {
-        weatherResponse = await WeatherService.getWeatherByLatLong(widget.position!);
+        weatherResponse = await WeatherService.getWeatherByLatLong(
+          widget.position!,
+        );
+
+        if (!mounted) {
+          return;
+        }
         setState(() {
           isLoading = false;
         });
       } catch (e) {
+        if (!mounted) {
+          return;
+        }
+
         showDialog(
             context: context,
-            barrierColor: Colors.black.withOpacity(0.5),
+          barrierColor: Colors.black.withValues(alpha: .5),
             builder: (context) {
               return UserEntryError(
                 errorText: 'Position unable to be found.',
-                onPressed: (() => Navigator.push(
+              onPressed:
+                  (() => Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const LocationDenied()),
+                    MaterialPageRoute(
+                      builder: (context) => const LocationDenied(),
+                    ),
                     )),
               );
-            });
+          },
+        );
       }
     } else {
       setState(() {
@@ -66,8 +80,14 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
 
     if (RegExp("[0-9]{5}").hasMatch(enteredValue)) {
       try {
-        weatherResponse = await WeatherService.getWeatherByZipCode(int.parse(enteredValue));
+        weatherResponse = await WeatherService.getWeatherByZipCode(
+          int.parse(enteredValue),
+        );
       } catch (e) {
+        if (!mounted) {
+          return;
+        }
+
         showDialog(
             context: context,
             builder: (context) {
@@ -75,12 +95,17 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
                 errorText: 'Unable to recognize zip code.',
                 onPressed: () => Navigator.pop(context),
               );
-            });
+          },
+        );
       }
     } else {
       try {
         weatherResponse = await WeatherService.getWeatherByName(enteredValue);
       } catch (e) {
+        if (!mounted) {
+          return;
+        }
+
         showDialog(
             context: context,
             builder: (context) {
@@ -88,7 +113,8 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
                 errorText: 'Unable to recognize city name.',
                 onPressed: () => Navigator.pop(context),
               );
-            });
+          },
+        );
       }
     }
     setState(() {
@@ -117,7 +143,8 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: SigColors.medTheme,
-      body: isLoading
+      body:
+          isLoading
           ? kSpinner
           : SafeArea(
               child: Column(
@@ -143,11 +170,7 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        getIcon(),
-                      ],
-                    ),
+                      child: Row(children: [getIcon()]),
                   ),
                   Text(
                     'Here\'s what you can expect:',

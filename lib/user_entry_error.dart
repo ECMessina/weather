@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:weather/constants.dart';
 
 class UserEntryError extends StatelessWidget {
-  const UserEntryError({super.key, required this.errorText, required this.onPressed});
+  const UserEntryError({
+    super.key,
+    required this.errorText,
+    required this.onPressed,
+  });
 
   final String errorText;
   final Function() onPressed;
@@ -22,8 +26,10 @@ class UserEntryError extends StatelessWidget {
             Center(
               child: TextButton(
                 style: const ButtonStyle(
-                  padding: MaterialStatePropertyAll(EdgeInsets.fromLTRB(50, 0, 50, 0)),
-                  backgroundColor: MaterialStatePropertyAll(SigColors.lightTheme),
+                  padding: WidgetStatePropertyAll(
+                    EdgeInsets.fromLTRB(50, 0, 50, 0),
+                  ),
+                  backgroundColor: WidgetStatePropertyAll(SigColors.lightTheme),
                 ),
                 onPressed: onPressed,
                 child: Text(

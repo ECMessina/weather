@@ -3,7 +3,11 @@ import 'package:weather/constants.dart';
 import 'package:weather/location_denied.dart';
 
 class UserChoicesAlert extends StatelessWidget {
-  const UserChoicesAlert({super.key, required this.text, required this.onPressed});
+  const UserChoicesAlert({
+    super.key,
+    required this.text,
+    required this.onPressed,
+  });
 
   final String text;
   final Function() onPressed;
@@ -31,7 +35,7 @@ class UserChoicesAlert extends StatelessWidget {
             const Spacer(),
             TextButton(
               style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(SigColors.lightTheme),
+                backgroundColor: WidgetStatePropertyAll(SigColors.lightTheme),
               ),
               onPressed: () {
                 Navigator.push(
@@ -47,7 +51,7 @@ class UserChoicesAlert extends StatelessWidget {
               ),
             ),
           ],
-        )
+        ),
       ],
     );
   }

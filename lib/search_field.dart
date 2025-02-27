@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather/constants.dart';
 
 class SearchField extends StatelessWidget {
-  const SearchField({
-    super.key,
-    required this.onSubmitted,
-  });
+  const SearchField({super.key, required this.onSubmitted});
 
   final Function(String) onSubmitted;
 
@@ -14,14 +11,13 @@ class SearchField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SearchBar(
-        shadowColor: const MaterialStatePropertyAll(Colors.white),
-        backgroundColor: const MaterialStatePropertyAll(SigColors.lightTheme),
-        leading: const Icon(
-          Icons.search,
-          color: Colors.white,
+        shadowColor: const WidgetStatePropertyAll(Colors.white),
+        backgroundColor: const WidgetStatePropertyAll(SigColors.lightTheme),
+        leading: const Icon(Icons.search, color: Colors.white),
+        padding: const WidgetStatePropertyAll(
+          EdgeInsets.fromLTRB(15, 5, 15, 5),
         ),
-        padding: const MaterialStatePropertyAll(EdgeInsets.fromLTRB(15, 5, 15, 5)),
-        textStyle: MaterialStatePropertyAll(TextStyles.locationTextStyle),
+        textStyle: WidgetStatePropertyAll(TextStyles.locationTextStyle),
         hintText: 'City name or zip/postal code',
         onSubmitted: onSubmitted,
       ),
