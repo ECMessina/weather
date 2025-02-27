@@ -11,13 +11,13 @@ class SearchField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SearchBar(
-        shadowColor: const WidgetStatePropertyAll(Colors.white),
+        shadowColor: const WidgetStatePropertyAll(SigColors.shadowColor),
         backgroundColor: const WidgetStatePropertyAll(SigColors.lightTheme),
-        leading: const Icon(Icons.search, color: Colors.white),
+        leading: const Icon(Icons.search, color: SigColors.searchIconColor),
         padding: const WidgetStatePropertyAll(
           EdgeInsets.fromLTRB(15, 5, 15, 5),
         ),
-        textStyle: WidgetStatePropertyAll(TextStyles.locationTextStyle),
+        textStyle: WidgetStatePropertyAll(TextStyles.searchTextStyle),
         hintText: 'City name or zip/postal code',
         onSubmitted: onSubmitted,
       ),

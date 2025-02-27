@@ -15,7 +15,7 @@ class ElevatedSearchButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        shadowColor: WidgetStatePropertyAll(Colors.white),
+        shadowColor: WidgetStatePropertyAll(SigColors.shadowColor),
         backgroundColor: WidgetStatePropertyAll(SigColors.lightTheme),
         elevation: WidgetStatePropertyAll(20),
         padding: WidgetStatePropertyAll(EdgeInsets.fromLTRB(15, 25, 15, 25)),

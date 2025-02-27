@@ -13,32 +13,24 @@ class LocationDenied extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const Row(
-            children: [
-              Icon(
-                Icons.dark_mode,
-                color: SigColors.lightTheme,
-                size: 200,
-              ),
-            ],
+          const Row(children: [WeatherIcon.denied]),
+          SearchField(
+            onSubmitted: (enteredValue) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:
+                      ((context) =>
+                          CurrentLocationWeather(searchedValue: enteredValue)),
+                ),
+              );
+            },
           ),
-          SearchField(onSubmitted: (enteredValue) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: ((context) => CurrentLocationWeather(
-                      searchedValue: enteredValue,
-                    )),
-              ),
-            );
-          }),
           TextButton(
             child: Container(
               decoration: const BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(
-                    color: SigColors.veryDarkTheme,
-                  ),
+                  bottom: BorderSide(color: SigColors.veryDarkTheme),
                 ),
               ),
               child: Text(

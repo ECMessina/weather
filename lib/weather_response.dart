@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'weather_response.g.dart';
 
 @JsonSerializable()
@@ -18,7 +19,8 @@ class WeatherResponse {
     required this.sys,
     required this.name,
   });
-  factory WeatherResponse.fromJson(Map<String, dynamic> json) => _$WeatherResponseFromJson(json);
+  factory WeatherResponse.fromJson(Map<String, dynamic> json) =>
+      _$WeatherResponseFromJson(json);
   Map<String, dynamic> toJson() => _$WeatherResponseToJson(this);
 }
 
@@ -35,7 +37,8 @@ class Weather {
     required this.description,
     required this.icon,
   });
-  factory Weather.fromJson(Map<String, dynamic> json) => _$WeatherFromJson(json);
+  factory Weather.fromJson(Map<String, dynamic> json) =>
+      _$WeatherFromJson(json);
   Map<String, dynamic> toJson() => _$WeatherToJson(this);
 }
 
@@ -44,19 +47,9 @@ class Main {
   final double temp;
   @JsonKey(name: 'feels_like')
   final double feelsLike;
-  @JsonKey(name: 'temp_min')
-  final double tempMin;
-  @JsonKey(name: 'temp_max')
-  final double tempMax;
   final int humidity;
 
-  Main({
-    required this.temp,
-    required this.feelsLike,
-    required this.tempMin,
-    required this.tempMax,
-    required this.humidity,
-  });
+  Main({required this.temp, required this.feelsLike, required this.humidity});
   factory Main.fromJson(Map<String, dynamic> json) => _$MainFromJson(json);
   Map<String, dynamic> toJson() => _$MainToJson(this);
 }
@@ -84,10 +77,7 @@ class Sys {
   final String country;
   final int sunset;
 
-  Sys({
-    required this.country,
-    required this.sunset,
-  });
+  Sys({required this.country, required this.sunset});
   factory Sys.fromJson(Map<String, dynamic> json) => _$SysFromJson(json);
   Map<String, dynamic> toJson() => _$SysToJson(this);
 }

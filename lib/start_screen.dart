@@ -172,9 +172,7 @@ class _StartScreenState extends State<StartScreen> {
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Row(
-              children: [Icon(Icons.sunny, color: Colors.amber, size: 200)],
-            ),
+            Row(children: [WeatherIcon.sunny]),
             ElevatedSearchButton(
               onTap: _determinePosition,
               text: 'What\'s the weather like?',

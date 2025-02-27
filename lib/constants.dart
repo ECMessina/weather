@@ -8,6 +8,8 @@ class SigColors {
   static const darkTheme = Colors.blue;
   static const medTheme = Color.fromARGB(255, 100, 181, 246);
   static const lightTheme = Color.fromARGB(255, 187, 222, 251);
+  static const shadowColor = Colors.white;
+  static const searchIconColor = Colors.white;
 }
 
 class TextStyles {
@@ -17,6 +19,11 @@ class TextStyles {
     fontWeight: FontWeight.bold,
   );
   static final locationTextStyle = GoogleFonts.merriweather(
+    color: SigColors.superDarkTheme,
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
+  static final searchTextStyle = GoogleFonts.merriweather(
     color: SigColors.superDarkTheme,
     fontSize: 18,
     fontWeight: FontWeight.bold,
@@ -29,9 +36,7 @@ class TextStyles {
 }
 
 const kSpinner = Center(
-  child: SpinKitSpinningLines(
-    color: SigColors.lightTheme,
-  ),
+  child: SpinKitSpinningLines(color: SigColors.lightTheme),
 );
 
 class WeatherIcon {
@@ -70,5 +75,10 @@ class WeatherIcon {
     color: Color.fromARGB(255, 53, 63, 72),
     size: 200,
     // 7xx
+  );
+  static const denied = Icon(
+    Icons.dark_mode,
+    color: SigColors.lightTheme,
+    size: 200,
   );
 }

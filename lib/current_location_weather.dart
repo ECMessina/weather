@@ -47,19 +47,19 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
         }
 
         showDialog(
-            context: context,
+          context: context,
           barrierColor: Colors.black.withValues(alpha: .5),
-            builder: (context) {
-              return UserEntryError(
-                errorText: 'Position unable to be found.',
+          builder: (context) {
+            return UserEntryError(
+              errorText: 'Position unable to be found.',
               onPressed:
                   (() => Navigator.push(
-                      context,
+                    context,
                     MaterialPageRoute(
                       builder: (context) => const LocationDenied(),
                     ),
-                    )),
-              );
+                  )),
+            );
           },
         );
       }
@@ -89,12 +89,12 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
         }
 
         showDialog(
-            context: context,
-            builder: (context) {
-              return UserEntryError(
-                errorText: 'Unable to recognize zip code.',
-                onPressed: () => Navigator.pop(context),
-              );
+          context: context,
+          builder: (context) {
+            return UserEntryError(
+              errorText: 'Unable to recognize zip code.',
+              onPressed: () => Navigator.pop(context),
+            );
           },
         );
       }
@@ -107,12 +107,12 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
         }
 
         showDialog(
-            context: context,
-            builder: (context) {
-              return UserEntryError(
-                errorText: 'Unable to recognize city name.',
-                onPressed: () => Navigator.pop(context),
-              );
+          context: context,
+          builder: (context) {
+            return UserEntryError(
+              errorText: 'Unable to recognize city name.',
+              onPressed: () => Navigator.pop(context),
+            );
           },
         );
       }
@@ -145,53 +145,44 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
       backgroundColor: SigColors.medTheme,
       body:
           isLoading
-          ? kSpinner
-          : SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    "In ${weatherResponse!.name}",
-                    style: TextStyles.locationTextStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        "Low: ${weatherResponse!.main.tempMin.toStringAsFixed(0)}°F",
-                        style: TextStyles.locationTextStyle,
-                      ),
-                      Text(
-                        "High: ${weatherResponse!.main.tempMax.toStringAsFixed(0)}°F",
-                        style: TextStyles.locationTextStyle,
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+              ? kSpinner
+              : SafeArea(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      "In ${weatherResponse!.name}",
+                      style: TextStyles.locationTextStyle,
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      'Current Temperature: ${weatherResponse!.main.temp.toStringAsFixed(0)} °F',
+                      style: TextStyles.expectTextStyle,
+                    ),
+                    Text(
+                      'Feels Like: ${weatherResponse!.main.feelsLike.toStringAsFixed(0)} °F',
+                      style: TextStyles.expectTextStyle,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: Row(children: [getIcon()]),
-                  ),
-                  Text(
-                    'Here\'s what you can expect:',
-                    style: TextStyles.expectTextStyle,
-                  ),
-                  Text(
-                    'Current Temperature: ${weatherResponse!.main.temp.toStringAsFixed(0)}°F',
-                    style: TextStyles.expectTextStyle,
-                  ),
-                  Text(
-                    'Feels Like: ${weatherResponse!.main.feelsLike.toStringAsFixed(0)}°F',
-                    style: TextStyles.expectTextStyle,
-                  ),
-                  SearchField(
-                    onSubmitted: (enteredValue) {
-                      getSearchedWeather(enteredValue);
-                    },
-                  ),
-                ],
+                    ),
+                    Text(
+                      'Humidity: ${weatherResponse!.main.humidity.toStringAsFixed(0)} %',
+                      style: TextStyles.expectTextStyle,
+                    ),
+                    Text(
+                      'Wind Speed: ${weatherResponse!.wind.speed.toStringAsFixed(0)} mph',
+                      style: TextStyles.expectTextStyle,
+                    ),
+                    SearchField(
+                      onSubmitted: (enteredValue) {
+                        getSearchedWeather(enteredValue);
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
     );
   }
 }
