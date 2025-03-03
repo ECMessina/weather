@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fgbg/flutter_fgbg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather/constants.dart';
-import 'package:weather/current_location_weather.dart';
-import 'package:weather/elevated_search_button.dart';
-import 'package:weather/location_denied.dart';
-import 'package:weather/user_choices_alert.dart';
+import 'package:weather/screens/current_location_weather.dart';
+import 'package:weather/buttons/start_button.dart';
+import 'package:weather/screens/location_denied.dart';
+import 'package:weather/alerts/permissions_alert.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
@@ -42,7 +42,7 @@ class _StartScreenState extends State<StartScreen> {
                 }
               }
             },
-            child: UserChoicesAlert(
+            child: PermissionsAlert(
               text: 'Location services are currently disabled',
               onPressed: () async {
                 await Geolocator.openLocationSettings();
@@ -78,7 +78,7 @@ class _StartScreenState extends State<StartScreen> {
                 }
               }
             },
-            child: UserChoicesAlert(
+            child: PermissionsAlert(
               text: 'App location permission is currently denied',
               onPressed: () async {
                 await Geolocator.openAppSettings();
@@ -123,7 +123,7 @@ class _StartScreenState extends State<StartScreen> {
                 }
               }
             },
-            child: UserChoicesAlert(
+            child: PermissionsAlert(
               text: 'App location permission is currently denied',
               onPressed: () async {
                 await Geolocator.openAppSettings();
@@ -172,8 +172,8 @@ class _StartScreenState extends State<StartScreen> {
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Row(children: [WeatherIcon.sunny]),
-            ElevatedSearchButton(
+            Row(children: [WeatherIcons.sunny]),
+            StartButton(
               onTap: _determinePosition,
               text: 'What\'s the weather like?',
             ),

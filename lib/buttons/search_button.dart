@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:weather/constants.dart';
 
-class SearchField extends StatelessWidget {
-  const SearchField({super.key, required this.onSubmitted});
+class SearchButton extends StatelessWidget {
+  const SearchButton({super.key, required this.onSubmitted});
 
   final Function(String) onSubmitted;
 
@@ -13,7 +13,7 @@ class SearchField extends StatelessWidget {
       child: SearchBar(
         shadowColor: const WidgetStatePropertyAll(SigColors.shadowColor),
         backgroundColor: const WidgetStatePropertyAll(SigColors.lightTheme),
-        leading: const Icon(Icons.search, color: SigColors.searchIconColor),
+        leading: WeatherIcons.search,
         padding: const WidgetStatePropertyAll(
           EdgeInsets.fromLTRB(15, 5, 15, 5),
         ),

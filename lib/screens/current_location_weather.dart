@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather/constants.dart';
-import 'package:weather/location_denied.dart';
-import 'package:weather/user_entry_error.dart';
-import 'package:weather/weather_response.dart';
-import 'package:weather/weather_service.dart';
-import 'package:weather/search_field.dart';
+import 'package:weather/screens/location_denied.dart';
+import 'package:weather/alerts/user_entry_error.dart';
+import 'package:weather/api_files/weather_response.dart';
+import 'package:weather/api_files/weather_service.dart';
+import 'package:weather/buttons/search_button.dart';
 
 class CurrentLocationWeather extends StatefulWidget {
   const CurrentLocationWeather({super.key, this.position, this.searchedValue});
@@ -125,17 +125,17 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
   Icon getIcon() {
     final weatherId = weatherResponse!.weather[0].id;
     if (weatherId > 800) {
-      return WeatherIcon.cloudy;
+      return WeatherIcons.cloudy;
     } else if (weatherId > 700 && weatherId < 800) {
-      return WeatherIcon.windy;
+      return WeatherIcons.windy;
     } else if (weatherId >= 600 && weatherId < 700) {
-      return WeatherIcon.snow;
+      return WeatherIcons.snow;
     } else if (weatherId >= 300 && weatherId < 600) {
-      return WeatherIcon.rain;
+      return WeatherIcons.rain;
     } else if (weatherId >= 200 && weatherId < 300) {
-      return WeatherIcon.storms;
+      return WeatherIcons.storms;
     } else {
-      return WeatherIcon.sunny;
+      return WeatherIcons.sunny;
     }
   }
 
@@ -175,7 +175,7 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
                       'Wind Speed: ${weatherResponse!.wind.speed.toStringAsFixed(0)} mph',
                       style: TextStyles.expectTextStyle,
                     ),
-                    SearchField(
+                    SearchButton(
                       onSubmitted: (enteredValue) {
                         getSearchedWeather(enteredValue);
                       },

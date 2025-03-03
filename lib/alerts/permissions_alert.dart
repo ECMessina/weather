@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:weather/buttons/permissions_button.dart';
 import 'package:weather/constants.dart';
-import 'package:weather/location_denied.dart';
+import 'package:weather/screens/location_denied.dart';
 
-class UserChoicesAlert extends StatelessWidget {
-  const UserChoicesAlert({
+class PermissionsAlert extends StatelessWidget {
+  const PermissionsAlert({
     super.key,
     required this.text,
     required this.onPressed,
@@ -24,20 +25,14 @@ class UserChoicesAlert extends StatelessWidget {
       actions: [
         Row(
           children: [
-            TextButton(
-              onPressed: onPressed,
-              child: Text(
-                'Go to\n settings',
-                style: TextStyles.locationTextStyle,
-                textAlign: TextAlign.center,
-              ),
-            ),
+            PermissionsButton(text: 'Go to\n settings', onSelected: onPressed),
             const Spacer(),
-            TextButton(
+            PermissionsButton(
               style: const ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(SigColors.lightTheme),
               ),
-              onPressed: () {
+              text: 'Proceed\nwithout',
+              onSelected: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -45,10 +40,6 @@ class UserChoicesAlert extends StatelessWidget {
                   ),
                 );
               },
-              child: Text(
-                'Proceed\nwithout',
-                style: TextStyles.locationTextStyle,
-              ),
             ),
           ],
         ),

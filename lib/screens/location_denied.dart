@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:weather/buttons/restart_button.dart';
 import 'package:weather/constants.dart';
-import 'package:weather/current_location_weather.dart';
-import 'package:weather/search_field.dart';
+import 'package:weather/screens/current_location_weather.dart';
+import 'package:weather/buttons/search_button.dart';
 
 class LocationDenied extends StatelessWidget {
   const LocationDenied({super.key});
@@ -13,8 +14,8 @@ class LocationDenied extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const Row(children: [WeatherIcon.denied]),
-          SearchField(
+          const Row(children: [WeatherIcons.denied]),
+          SearchButton(
             onSubmitted: (enteredValue) {
               Navigator.push(
                 context,
@@ -26,18 +27,8 @@ class LocationDenied extends StatelessWidget {
               );
             },
           ),
-          TextButton(
-            child: Container(
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: SigColors.veryDarkTheme),
-                ),
-              ),
-              child: Text(
-                'Get Current Location Weather',
-                style: TextStyles.expectTextStyle,
-              ),
-            ),
+          RestartButton(
+            text: 'Get Current Location Weather',
             onPressed: () => Navigator.pop(context),
           ),
         ],

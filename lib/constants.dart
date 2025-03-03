@@ -39,7 +39,7 @@ const kSpinner = Center(
   child: SpinKitSpinningLines(color: SigColors.lightTheme),
 );
 
-class WeatherIcon {
+class WeatherIcons {
   static const sunny = Icon(
     Icons.sunny,
     color: Colors.amber,
@@ -81,4 +81,5 @@ class WeatherIcon {
     color: SigColors.lightTheme,
     size: 200,
   );
+  static const search = Icon(Icons.search, color: SigColors.searchIconColor);
 }

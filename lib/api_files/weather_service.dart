@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:geolocator/geolocator.dart';
-import 'package:weather/weather_response.dart';
+import 'package:weather/api_files/weather_response.dart';
 import 'package:http/http.dart' as http;
 
 class WeatherService {
@@ -8,7 +8,11 @@ class WeatherService {
   static const _apiKey = '84ebe15e64b9de33720d14b09af5b38c';
 
   static Future<WeatherResponse> getWeatherByLatLong(Position position) async {
-    final response = await http.get(Uri.parse('$_baseUrl?lat=${position.latitude}&lon=${position.longitude}&appid=$_apiKey&units=imperial'));
+    final response = await http.get(
+      Uri.parse(
+        '$_baseUrl?lat=${position.latitude}&lon=${position.longitude}&appid=$_apiKey&units=imperial',
+      ),
+    );
     if (response.statusCode == 200) {
       return WeatherResponse.fromJson(jsonDecode(response.body));
     } else {
@@ -17,7 +21,9 @@ class WeatherService {
   }
 
   static Future<WeatherResponse> getWeatherByName(String name) async {
-    final response = await http.get(Uri.parse('$_baseUrl?q=$name,us&appid=$_apiKey&units=imperial'));
+    final response = await http.get(
+      Uri.parse('$_baseUrl?q=$name,us&appid=$_apiKey&units=imperial'),
+    );
     if (response.statusCode == 200) {
       return WeatherResponse.fromJson(jsonDecode(response.body));
     } else {
@@ -26,7 +32,9 @@ class WeatherService {
   }
 
   static Future<WeatherResponse> getWeatherByZipCode(int zip) async {
-    final response = await http.get(Uri.parse('$_baseUrl?zip=$zip,us&appid=$_apiKey&units=imperial'));
+    final response = await http.get(
+      Uri.parse('$_baseUrl?zip=$zip,us&appid=$_apiKey&units=imperial'),
+    );
     if (response.statusCode == 200) {
       return WeatherResponse.fromJson(jsonDecode(response.body));
     } else {

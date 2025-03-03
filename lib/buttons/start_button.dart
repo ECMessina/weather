@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:weather/constants.dart';
 
-class ElevatedSearchButton extends StatelessWidget {
-  const ElevatedSearchButton({
-    super.key,
-    required this.onTap,
-    required this.text,
-  });
+class StartButton extends StatelessWidget {
+  const StartButton({super.key, required this.onTap, required this.text});
 
   final Function() onTap;
   final String text;
