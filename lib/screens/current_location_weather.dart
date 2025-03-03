@@ -64,17 +64,16 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
         );
       }
     } else {
-      setState(() {
-        isLoading = false;
-      });
       getSearchedWeather(widget.searchedValue!);
     }
   }
 
   void getSearchedWeather(String enteredValue) async {
-    setState(() {
-      isLoading = true;
-    });
+    if (!isLoading) {
+      setState(() {
+        isLoading = true;
+      });
+    }
 
     enteredValue = enteredValue.trim();
 
@@ -88,12 +87,12 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
           return;
         }
 
-        showDialog(
+        await showDialog(
           context: context,
           builder: (context) {
             return UserEntryError(
               errorText: 'Unable to recognize zip code.',
-              onPressed: () => Navigator.pop(context),
+              onPressed: dismissDialog,
             );
           },
         );
@@ -106,20 +105,31 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
           return;
         }
 
-        showDialog(
+        await showDialog(
           context: context,
           builder: (context) {
             return UserEntryError(
               errorText: 'Unable to recognize city name.',
-              onPressed: () => Navigator.pop(context),
+              onPressed: dismissDialog,
             );
           },
         );
       }
     }
-    setState(() {
-      isLoading = false;
-    });
+
+    if (weatherResponse != null) {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void dismissDialog() {
+    Navigator.pop(context);
+
+    if (weatherResponse == null) {
+      Navigator.pop(context);
+    }
   }
 
   Icon getIcon() {
