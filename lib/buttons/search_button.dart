@@ -18,7 +18,7 @@ class SearchButton extends StatelessWidget {
           EdgeInsets.fromLTRB(15, 5, 15, 5),
         ),
         textStyle: WidgetStatePropertyAll(TextStyles.searchTextStyle),
-        hintText: 'City name or zip/postal code',
+        hintText: 'City,state or zip code',
         onSubmitted: onSubmitted,
       ),
     );

@@ -111,6 +111,7 @@ class _CurrentLocationWeatherState extends State<CurrentLocationWeather> {
             return UserEntryError(
               errorText: 'Unable to recognize city name.',
               onPressed: dismissDialog,
+              helperText: '*(Example: Woodstock, GA)',
             );
           },
         );

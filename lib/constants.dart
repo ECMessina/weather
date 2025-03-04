@@ -33,6 +33,10 @@ class TextStyles {
     fontSize: 20,
     fontWeight: FontWeight.bold,
   );
+  static final hintTextStyle = GoogleFonts.merriweather(
+    color: SigColors.superDarkTheme,
+    fontSize: 12,
+  );
 }
 
 const kSpinner = Center(
